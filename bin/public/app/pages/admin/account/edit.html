@@ -1,0 +1,141 @@
+<style>
+.help-text
+{
+	color : red;
+}
+
+</style>
+
+<div class="container content">
+	<div class="col-lg-9 well">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pull-left section-title">
+					<span>User Registration Form</span>
+				</h2>
+			</div>
+		</div>
+		<div>
+			 <div class="alert alert-dismissible alert-danger" ng-show="errors.data">
+                            <strong>Errors!</strong> <br/>
+                            <ul>
+                                <li ng-repeat="(key, value) in errors.data">{{value}}</li>
+                            </ul>
+             </div>
+		</div>
+		<div class="row">
+			<form>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-6 form-group" class=""  ng-class="{'has-error is-focused' : errors.data.firstName}">
+							<label class="has-error" for="name">First Name</label> 
+							<input id="name" type="text"
+								placeholder="Enter First Name Here.." class="form-control"
+								ng-model="user.firstName">
+								<span ng-show="errors.data" class="help-text">
+                                {{errors.data.firstName}}
+                            </span>
+						</div>
+						<div class="col-sm-6 form-group" ng-class="{'has-error is-focused' : errors.data.lastName}">
+							<label>Last Name</label> <input type="text"
+								placeholder="Enter Last Name Here.." class="form-control"
+								ng-model="user.lastName">
+								<span ng-show="errors.data" class="help-text">
+                                {{errors.data.lastName}}
+                            </span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea placeholder="Enter Address Here.." rows="3"
+							class="form-control" ng-model="user.address"></textarea>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 form-group">
+							<label>City</label> <select class="form-control"
+								ng-model="user.city">
+								<option value="1">Addis Ababa</option>
+							</select>
+						</div>
+						<div class="col-sm-4 form-group">
+							<label>Branch</label> <select class="form-control"
+								ng-model="user.branch">
+								<option value="1">Finfine</option>
+							</select>
+						</div>
+						<div class="col-sm-4 form-group">
+							<label>Department</label> <select class="form-control"
+								ng-model="user.department">
+								<option value="1">IT</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 form-group"  
+						ng-class="{'has-error is-focused' : errors.data.password}">
+							<label>Password </label> <input type="password"
+								placeholder="Enter password Here.." class="form-control"
+								ng-model="user.password" >
+								<span ng-show="errors.data" class="help-text">
+                                {{errors.data.password}}
+                            </span>
+						</div>
+						<div class="col-sm-6 form-group"  
+						ng-class="{'has-error is-focused' : errors.data.confirmPassword || errors.data.valid}">
+							<label>Confirm Password</label> <input type="password"
+								placeholder="Confirm password Here.." class="form-control"
+								ng-model="user.confirmPassword">
+								<span ng-show="errors.data.confirmPassword" class="help-text">
+                                {{errors.data.confirmPassword}}
+                            </span>
+                            <span ng-show="errors.data.valid" class="help-text">
+                            {{errors.data.valid}}
+                            </span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<label>Phone Number </label> <input type="text"
+								placeholder="Enter office phone number Here.."
+								class="form-control" ng-model="user.officePhoneNumber">
+						</div>
+						<div class="col-sm-6 form-group">
+							<label>Cell Phone</label> <input type="text"
+								placeholder="Enter cell phone number Here.."
+								class="form-control" ng-model="user.cellPhoneNo">
+						</div>
+					</div>
+					<div class="form-group" class="has-error is-focused" ng-class="{'has-error is-focused' : errors.data.roles}">
+						<label>Email Address</label> <input type="text"
+							placeholder="Enter Email Address Here.." class="form-control"
+							ng-model="user.email">
+							<span ng-show="errors.data" class="help-text">
+                                {{errors.data.email}}
+                            </span>
+					</div>
+
+					<div class="form-group"
+					 ng-class="{'has-error is-focused' : errors.data.roles}">
+						<label>Roles</label>
+						<ui-select multiple ng-model="user.roles" theme="bootstrap"
+							ng-disabled="false" title="Choose a role"> <ui-select-match
+							placeholder="Select roles...">{{$item.description}}
+						</ui-select-match> <ui-select-choices
+							repeat="person in people | propsFilter: {description: $select.search}">
+						<small> {{person.description}} </small> </ui-select-choices> </ui-select>
+						<span ng-show="errors.data.roles && user.roles.length==0" class="help-text">
+                                {{errors.data.roles}}
+                            </span>
+					</div>
+					<br/>
+					<button type="button" class="btn btn-lg btn-primary"  
+						ng-click='save(user)'> Save</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<hr>
+
+</div>
+
