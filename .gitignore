@@ -12,3 +12,12 @@ bin/*
 *.projects
 *.prefs
 *.project
+.gitignore.swp
+git
+gradle/
+gradlew
+gradlew.bat
+classes
+.gradle
+.classpath
+.project
