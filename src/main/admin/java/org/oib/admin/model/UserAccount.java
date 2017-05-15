@@ -6,6 +6,7 @@ import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.oib.core.config.model.BaseModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
-public class UserAccount {
+public class UserAccount extends BaseModel {
 
 	@NotEmpty(message = "{firstName.required}")
 	private String firstName;
@@ -43,13 +43,14 @@ public class UserAccount {
 
 	private String cellPhoneNo;
 
+	private int enabled;
 	
 	@Email(message = "{email.invalid}")
 	@NotEmpty(message = "{email.required}")
 	private String email;
 
 	@NotEmpty(message = "{roles.required}")
-	private Collection<Roles> roles;
+	private Collection<Role> roles;
 
 	@AssertTrue(message = "{confirmPassword.not.match}")
 	private boolean isValid() {

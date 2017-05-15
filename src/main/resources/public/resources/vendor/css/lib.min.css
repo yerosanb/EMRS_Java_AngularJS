@@ -1592,39 +1592,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
   margin-right: 5px
 }
 
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px
-}
 
-.alert > ul {
-  margin-bottom: 0
-}
-
-.alert-dismissible {
-  padding-right: 35px
-}
-
-.alert-dismissible .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  color: inherit
-}
-
-.alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1
-}
-
-.alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1
-}
 
 .media > .pull-right {
   padding-left: 10px
@@ -3699,8 +3667,8 @@ label.control-label {
 }
 
 .navbar-black.navbar .dropdown-menu li > a, .navbar-danger.navbar .dropdown-menu li > a, .navbar-default.navbar .dropdown-menu li > a, .navbar-info.navbar .dropdown-menu li > a, .navbar-inverse.navbar .dropdown-menu li > a, .navbar-material-amber.navbar .dropdown-menu li > a, .navbar-material-blue-grey.navbar .dropdown-menu li > a, .navbar-material-blue.navbar .dropdown-menu li > a, .navbar-material-brown.navbar .dropdown-menu li > a, .navbar-material-cyan.navbar .dropdown-menu li > a, .navbar-material-deep-orange.navbar .dropdown-menu li > a, .navbar-material-deep-purple.navbar .dropdown-menu li > a, .navbar-material-green.navbar .dropdown-menu li > a, .navbar-material-grey.navbar .dropdown-menu li > a, .navbar-material-light-blue.navbar .dropdown-menu li > a, .navbar-material-light-green.navbar .dropdown-menu li > a, .navbar-material-lime.navbar .dropdown-menu li > a, .navbar-material-orange.navbar .dropdown-menu li > a, .navbar-material-pink.navbar .dropdown-menu li > a, .navbar-material-purple.navbar .dropdown-menu li > a, .navbar-material-red.navbar .dropdown-menu li > a, .navbar-material-teal.navbar .dropdown-menu li > a, .navbar-material-yellow.navbar .dropdown-menu li > a, .navbar-primary.navbar .dropdown-menu li > a, .navbar-success.navbar .dropdown-menu li > a, .navbar-warning.navbar .dropdown-menu li > a, .navbar-white.navbar .dropdown-menu li > a, .navbar.navbar .dropdown-menu li > a {
-  font-size: 16px;
-  padding: 13px 16px
+  font-size: 14px;
+  padding: 9px 16px
 }
 
 .navbar-default.navbar, .navbar.navbar {
@@ -4708,7 +4676,7 @@ label.control-label {
 }
 
 .dropdown-menu .divider {
-  background-color: rgba(229, 229, 229, .12)
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 .dropdown-menu li {
@@ -4829,23 +4797,7 @@ label.control-label {
   color: #607d8b
 }
 
-.alert, .alert-danger, .alert-danger a, .alert-info {
-  color: rgba(255, 255, 255, .84)
-}
 
-.alert {
-  border: 0;
-  border-radius: 0;
-  background-color: rgba(255, 255, 255, .84)
-}
-
-.alert-info {
-  background-color: #03a9f4
-}
-
-.alert-danger {
-  background-color: #f44336
-}
 
 .tooltip.in {
   opacity: 1

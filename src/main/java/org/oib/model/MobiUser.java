@@ -1,7 +1,16 @@
 package org.oib.model;
 
+import java.util.List;
 
-public class MobiUser {
+import org.oib.admin.model.Role;
+import org.oib.core.config.model.BaseModel;
+
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+@ToString
+public class MobiUser extends BaseModel {
 
 	/**
 	  * The Username
@@ -13,49 +22,17 @@ public class MobiUser {
 	  */
 	 private String password;
 	
-	 private AccountRoleEnum role;
+	 private List<Role> roles;
 	 
 	 private Boolean isEnabled;
 	 
 	 private Integer access;
+	 
+	 private String firstName;
+	 
+	 private String lastName;
+	 
+	 private String email;
 	  
-	 public String getUsername() {
-	  return username;
-	 }
-	 
-	 public void setUsername(String username) {
-	  this.username = username;
-	 }
-	 
-	 public String getPassword() {
-	  return password;
-	 }
-	 
-	 public void setPassword(String password) {
-	  this.password = password;
-	 }
-	
-	public AccountRoleEnum getRole() {
-		return role;
-	}
-	public void setRole(AccountRoleEnum role) {
-		this.role = role;
-	}
-
-	public Boolean IsEnabled() {
-		return isEnabled;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
-	public Integer getAccess() {
-		return access;
-	}
-
-	public void setAccess(Integer access) {
-		this.access = access;
-	}
 	  
 }

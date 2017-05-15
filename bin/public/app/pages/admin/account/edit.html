@@ -1,28 +1,39 @@
-<style>
-.help-text
-{
-	color : red;
-}
 
-</style>
-
-<div class="container content">
-	<div class="col-lg-9 well">
+<div class="container content" id="messages">
+	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-lg-12">
 				<h2 class="pull-left section-title">
 					<span>User Registration Form</span>
+					<a ng-href="#/admin/user" class="btn pull-right btn-raised">Cancel</a>
 				</h2>
 			</div>
 		</div>
-		<div>
+		<div >
 			 <div class="alert alert-dismissible alert-danger" ng-show="errors.data">
                             <strong>Errors!</strong> <br/>
                             <ul>
                                 <li ng-repeat="(key, value) in errors.data">{{value}}</li>
                             </ul>
              </div>
+             
+    			<div class="alert alert-dismissible alert-danger" ng-show="success.data">
+                            <strong>Errors!</strong> <br/>
+                            <ul>
+                                <li ng-repeat="(key, value) in errors.data">{{value}}</li>
+                            </ul>
+             </div>
 		</div>
+		<div>
+			<div class="alert alert-dismissible alert-success"
+				ng-show="successMessage">
+				<strong>Success</strong> <br />
+				<ul>
+					<li ng-bind="successMessage" >successMessage</li>
+				</ul>
+			</div>
+		</div>
+		
 		<div class="row">
 			<form>
 				<div class="col-sm-12">
@@ -32,7 +43,7 @@
 							<input id="name" type="text"
 								placeholder="Enter First Name Here.." class="form-control"
 								ng-model="user.firstName">
-								<span ng-show="errors.data" class="help-text">
+								<span ng-show="errors.data" class="help-text error">
                                 {{errors.data.firstName}}
                             </span>
 						</div>
@@ -40,7 +51,7 @@
 							<label>Last Name</label> <input type="text"
 								placeholder="Enter Last Name Here.." class="form-control"
 								ng-model="user.lastName">
-								<span ng-show="errors.data" class="help-text">
+								<span ng-show="errors.data" class="help-text error">
                                 {{errors.data.lastName}}
                             </span>
 						</div>
@@ -70,13 +81,13 @@
 							</select>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" ng-show="!editUserId">
 						<div class="col-sm-6 form-group"  
 						ng-class="{'has-error is-focused' : errors.data.password}">
 							<label>Password </label> <input type="password"
 								placeholder="Enter password Here.." class="form-control"
 								ng-model="user.password" >
-								<span ng-show="errors.data" class="help-text">
+								<span ng-show="errors.data" class="help-text error">
                                 {{errors.data.password}}
                             </span>
 						</div>
@@ -85,10 +96,10 @@
 							<label>Confirm Password</label> <input type="password"
 								placeholder="Confirm password Here.." class="form-control"
 								ng-model="user.confirmPassword">
-								<span ng-show="errors.data.confirmPassword" class="help-text">
+								<span ng-show="errors.data.confirmPassword" class="help-text error">
                                 {{errors.data.confirmPassword}}
                             </span>
-                            <span ng-show="errors.data.valid" class="help-text">
+                            <span ng-show="errors.data.valid" class="help-text error">
                             {{errors.data.valid}}
                             </span>
 						</div>
@@ -105,13 +116,14 @@
 								class="form-control" ng-model="user.cellPhoneNo">
 						</div>
 					</div>
-					<div class="form-group" class="has-error is-focused" ng-class="{'has-error is-focused' : errors.data.roles}">
+					<div class="form-group" 
+					ng-class="{'has-error is-focused' : errors.data.email ||  error422(errors.status)}">
 						<label>Email Address</label> <input type="text"
 							placeholder="Enter Email Address Here.." class="form-control"
 							ng-model="user.email">
-							<span ng-show="errors.data" class="help-text">
-                                {{errors.data.email}}
-                            </span>
+							<span ng-show="errors.data.email ||  error422(errors.status)" class="help-text error">
+                                {{errors.data.email || errors.data.error}}
+                            </span> 
 					</div>
 
 					<div class="form-group"
@@ -119,23 +131,36 @@
 						<label>Roles</label>
 						<ui-select multiple ng-model="user.roles" theme="bootstrap"
 							ng-disabled="false" title="Choose a role"> <ui-select-match
-							placeholder="Select roles...">{{$item.description}}
-						</ui-select-match> <ui-select-choices
-							repeat="person in people | propsFilter: {description: $select.search}">
-						<small> {{person.description}} </small> </ui-select-choices> </ui-select>
-						<span ng-show="errors.data.roles && user.roles.length==0" class="help-text">
+							placeholder="Select roles...">{{$item.name}}
+						</ui-select-match> 
+						<ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
+						  <strong><div ng-bind-html="role.name | highlight: $select.search"></div></strong>
+                           <i><small ng-bind-html="role.description | highlight: $select.search"></small></i>
+						</ui-select-choices> 
+						</ui-select>
+						<span ng-show="errors.data.roles || user.roles.length==0" class="help-text error">
                                 {{errors.data.roles}}
                             </span>
 					</div>
 					<br/>
 					<button type="button" class="btn btn-lg btn-primary"  
 						ng-click='save(user)'> Save</button>
+						
+					<a ng-href="#/admin/user" class="btn btn-raised">Cancel</a>
+					
+					<button type="button" ng-show="editUserId" class="btn btn-sm btn-raised pull-right">Disable</button> &nbsp;&nbsp;&nbsp;
+					<button type="button" ng-show="editUserId" class="btn btn-sm btn-raised pull-right" >Change Password..</button>
 				</div>
 			</form>
+			
+			
 		</div>
 
 	</div>
 	<hr>
-
 </div>
+
+
+
+
 

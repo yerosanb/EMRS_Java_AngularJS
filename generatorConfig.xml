@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://localhost/oib" driverClass="com.mysql.jdbc.Driver" password="vertrigio" userId="root" />
+    <javaModelGenerator targetPackage="org.oib.repository" targetProject="role" />
+    <sqlMapGenerator targetPackage="org.oib.repository" targetProject="roleSql" />
+    <javaClientGenerator targetPackage="org.oib.repository" targetProject="roleSql" type="XMLMAPPER" />
+    <table schema="oib" tableName="role">
+       
+    </table>
+  </context>
+</generatorConfiguration>

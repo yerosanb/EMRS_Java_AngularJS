@@ -2,10 +2,10 @@
 
 myapp.service('Session', function () {
     this.create = function (data) {
-        this.id = data.id;
+    	this.id = data.id;
         this.login = data.login;
         this.firstName = data.firstName;
-        this.lastName = data.familyName;
+        this.lastName = data.lastName;
         this.email = data.email;
         this.userRoles = [];
         angular.forEach(data.authorities, function (value, key) {
@@ -53,10 +53,12 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
         },
         isAuthorized: function (authorizedRoles) {
             if (!angular.isArray(authorizedRoles)) {
+            	
                 if (authorizedRoles == '*') {
                     return true;
                 }
                 authorizedRoles = [authorizedRoles];
+                console.log('roles..', authorizedRoles);
             }
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
@@ -115,7 +117,7 @@ myapp.service('TokensService', function ($log, $resource) {
 });
 
 myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedService, Session, 
-		USER_ROLES, $q, $timeout) {
+		USER_ROLES, $q, $timeout, Service) {
 	
 	return {
 		
@@ -129,9 +131,11 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 	            event.preventDefault();
 	            $rootScope.$broadcast("event:auth-loginRequired", {});
 	        } else if (next.access && !AuthSharedService.isAuthorized(next.access.authorizedRoles)) {
+	        	console.log(next.access.authorizedRoles);
 	            event.preventDefault();
 	            $rootScope.$broadcast("event:auth-forbidden", {});
 	        }
+	        $rootScope.requestedUrl = next.originalPath;
 	    });
 
 	    $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
@@ -144,14 +148,19 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 	    $rootScope.$on('event:auth-loginConfirmed', function (event, data) {
 	        console.log('login confirmed start ' + data);
 	        $rootScope.loadingAccount = false;
-	        var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/home");
+	        console.log($location.path());
+	        
+	        var nextLocation = 
+	        	($rootScope.requestedUrl && $rootScope.requestedUrl !== '/login' 
+	        		? $rootScope.requestedUrl : "/home");
+	        
 	        var delay = ($location.path() === "/loading" ? 1500 : 0);
 
 	        $timeout(function () {
 	            Session.create(data);
 	            $rootScope.account = Session;
 	            $rootScope.authenticated = true;
-	           // $location.path(nextLocation).replace();
+	            $location.path(nextLocation).replace();
 	        }, delay);
 
 	    });
@@ -180,6 +189,13 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 	    $rootScope.$on('event:auth-loginCancelled', function () {
 	        $location.path('/login').replace();
 	    });
+	    
+	    $rootScope.$on('httpErrorEvent', function (event, data) {
+	    	 if(data.status === -1){
+	    		 Service.errorToast("Unable to connect to remote servers. Please check your network.", 
+	    				 null, { progressBar : true, timeOut: 10000 });
+	    	}
+	    });
 
 	    // Get already authenticated user account
 	    AuthSharedService.getAccount();
@@ -190,11 +206,6 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 
 
 
-myapp.service('AccountService', function ($resource) {
-	return $resource('/admin/account/user',
-			 {}, {});
-
-});
 
 
 

@@ -1,0 +1,38 @@
+<div class="container well content">
+	<div class="row">
+		<div class="col-lg-12">
+			<h2 class="pull-left section-title">
+
+				<span>Roles List</span>
+				<a href="#/admin/role/new" class="btn btn-primary pull-right btn-sm" >Add New</a>
+			</h2>
+		</div>
+	</div>
+
+	<div class="well">
+	    <table class="table">
+	      <thead>
+	    
+	        <tr>
+	          <th>#</th>
+	          <th>Name</th>
+	          <th>Description</th>
+	          <th>Rights</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr ng-repeat="role in roles">
+	          <td ng-bind="$index+1"></td>
+	          <td ><strong><a ng-href="#/admin/role/edit/{{role.id}}" ng-bind="role.name"></a></strong></td>
+	          <td ng-bind="role.description"></td>
+	          <td ><span ng-repeat="right in role.rights"><span  class="label label-primary">{{right.description}}</span>&nbsp;<br/></span></td>
+	        </tr>
+	       
+	      </tbody>
+	    </table>
+	</div>
+ 
+</div>
+
+
+

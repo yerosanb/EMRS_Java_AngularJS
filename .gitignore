@@ -1,0 +1,14 @@
+/bin
+*.class
+.settings/
+.project
+.springBeans
+.tern-project
+.gradle/
+.git/
+class
+bin/*
+*.class
+*.projects
+*.prefs
+*.project

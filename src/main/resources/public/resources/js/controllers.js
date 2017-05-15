@@ -64,7 +64,6 @@ myapp.controller('LoginController', function ($rootScope, $scope, AuthSharedServ
     })
     .controller('ErrorController', function ($scope, $routeParams) {
         $scope.code = $routeParams.code;
-
         switch ($scope.code) {
             case "403" :
                 $scope.message = "Oops! you have come to unauthorised page."

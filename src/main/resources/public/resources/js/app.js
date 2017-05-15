@@ -1,8 +1,8 @@
 'use strict';
 
 var myapp = angular
-    .module('myApp', ['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor', 
-    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize']);
+    .module('myApp', ['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor',
+    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize','angular-loading-bar']);
 
 
 myapp.constant('USER_ROLES', {
@@ -44,14 +44,26 @@ myapp.filter('propsFilter', function() {
 	});
 
 
-myapp.config(function ($routeProvider, USER_ROLES) {
+myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
 
+
+    // Expermental, there is already a progressbar http interceptor
+    // let implement reponseInterceptor only here
+    $httpProvider.interceptors.push(function($q, $injector, $rootScope) {
+        return {
+          responseError: function(rejection) {
+        	  $rootScope.$broadcast("httpErrorEvent", rejection);
+            return $q.reject(rejection);
+          }
+        };
+      });
+    
     $routeProvider
     .when("/home", {
         templateUrl: "partials/home.html",
         controller: 'HomeController',
         access: {
-            loginRequired: true,
+            loginRequired: false,
             authorizedRoles: [USER_ROLES.all]
         }
     }).when('/', {
@@ -60,21 +72,21 @@ myapp.config(function ($routeProvider, USER_ROLES) {
         templateUrl: 'partials/users.html',
         controller: 'UsersController',
         access: {
-            loginRequired: true,
+            loginRequired: false,
             authorizedRoles: [USER_ROLES.admin]
         }
     }).when('/apiDoc', {
         templateUrl: 'partials/apiDoc.html',
         controller: 'ApiDocController',
         access: {
-            loginRequired: true,
+            loginRequired: false,
             authorizedRoles: [USER_ROLES.all]
         }
     }).when('/tokens', {
         templateUrl: 'partials/tokens.html',
         controller: 'TokensController',
         access: {
-            loginRequired: true,
+            loginRequired: false,
             authorizedRoles: [USER_ROLES.all]
         }
     }).when('/login', {
@@ -114,20 +126,101 @@ myapp.config(function ($routeProvider, USER_ROLES) {
     
     //Admin
     .when("/admin/user/", {
-        templateUrl: "app/pages/admin/account/home.html",
-        controller: "AccountController",
+        templateUrl: "app/pages/admin/account/list.html",
+        controller: "AccountListController",
         access: {
             loginRequired: false,	
             authorizedRoles: [USER_ROLES.all]
         }
     }).when("/admin/user/new", {
         templateUrl: "app/pages/admin/account/edit.html",
-        controller: "AccountController",
+        controller: "AccountEditController",
         access: {
             loginRequired: false,	
             authorizedRoles: [USER_ROLES.all]
         }
     })
+    .when("/admin/user/edit/:id", {
+        templateUrl: "app/pages/admin/account/edit.html",
+        controller: "AccountEditController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .when("/admin/roles", {
+        templateUrl: "app/pages/admin/role/list.html",
+        controller: "AccountRoleController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .when("/admin/role/edit/:id", {
+        templateUrl: "app/pages/admin/role/edit.html",
+        controller: "AccountRoleController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+     .when("/admin/role/new", {
+        templateUrl: "app/pages/admin/role/edit.html",
+        controller: "AccountRoleController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+     .when("/admin/lookups", {
+        templateUrl: "app/pages/admin/lookups/list.html",
+        controller: "LookupsController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+     .when("/admin/lookup/branch", {
+        templateUrl: "/app/pages/admin/lookups/branch.html",
+        controller: "BranchLookupController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .when("/admin/lookup/city", {
+        templateUrl: "/app/pages/admin/lookups/city.html",
+        controller: "CityLookupController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+     .when("/admin/lookup/department", {
+        templateUrl: "/app/pages/admin/lookups/department.html",
+        controller: "DepartmentLookupController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .when("/admin/menu", {
+        templateUrl: "/app/pages/admin/menu/menu-edit.html",
+        controller: "DepartmentLookupController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    })
+    .when("/admin/account", {
+        templateUrl: "/app/pages/admin/faccount/asd.html",
+        controller: "DoomController",
+        access: {
+            loginRequired: false,	
+            authorizedRoles: [USER_ROLES.all]
+        }
+    });
+    
     
     
 });

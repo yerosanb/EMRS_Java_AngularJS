@@ -1,0 +1,54 @@
+<div class="container well content">
+
+<ng-include ng-controller="LookupsController" 
+src="'app/pages/admin/lookups/list.html'"></ng-include>
+
+<div class="tab-content">
+	<div class="tab-pane active">
+		<div class="col-lg-12" ng-if="mode === 'list'">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2 class="pull-left section-title">
+						<span>cities</span>
+						<a href="#/admin/lookup/city?m=new" 
+						    class="btn btn-primary pull-right btn-sm" >Add New</a>
+					</h2>
+				</div>
+			</div>
+			 
+	<div class="row">
+			<div  ng-show="cities.length">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>#</th>
+			          <th>Name</th>
+			          <th>code</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr ng-repeat="city in cities">
+			          <td>{{$index +1}}</td>
+			          <td><strong><a href="#/admin/lookup/city?m=edit&id={{city.id}}"
+			           	ng-bind="city.name">
+			          </a></strong></td>
+			           <td>{{city.code}}</td>
+			      </tbody>
+			    </table>
+			</div>
+	</div>
+
+</div>
+	<!-- Edit start-->
+	<ng-include ng-if="mode !== 'list'" src="'/app/pages/admin/lookups/city-edit.html'"></ng-include>
+	<!-- Edit end -->
+	<hr>
+	</div>
+</div>
+</div>
+
+
+
+
+
+
