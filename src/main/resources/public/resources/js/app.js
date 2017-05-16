@@ -2,12 +2,12 @@
 
 var myapp = angular
     .module('myApp', ['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor',
-    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize','angular-loading-bar']);
+    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize','angular-loading-bar', 'toastr']);
 
 
 myapp.constant('USER_ROLES', {
     all: '*',
-    admin: 'admin',
+    admin: 'ADMIN',
     user: 'user'
 });
 
@@ -59,68 +59,45 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
       });
     
     $routeProvider
-    .when("/home", {
-        templateUrl: "partials/home.html",
-        controller: 'HomeController',
-        access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
-        }
-    }).when('/', {
-        redirectTo: '/admin/user'
-    }).when('/users', {
-        templateUrl: 'partials/users.html',
-        controller: 'UsersController',
-        access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.admin]
-        }
-    }).when('/apiDoc', {
-        templateUrl: 'partials/apiDoc.html',
-        controller: 'ApiDocController',
-        access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
-        }
-    }).when('/tokens', {
-        templateUrl: 'partials/tokens.html',
-        controller: 'TokensController',
-        access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
-        }
+    .when("/home",  { 
+    	templateUrl: "partials/home.html", 
+    	controller: 'HomeController', 
+    	access: { 
+    		loginRequired: true,  
+    		authorizedRights: [USER_ROLES.all] 
+    	}
     }).when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginController',
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: [USER_ROLES.all]
         }
     }).when('/loading', {
         templateUrl: 'partials/loading.html',
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: [USER_ROLES.all]
         }
     }).when("/logout", {
         template: " ",
         controller: "LogoutController",
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: [USER_ROLES.all]
         }
     }).when("/error/:code", {
         templateUrl: "partials/error.html",
         controller: "ErrorController",
         access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,
+            authorizedRights: [USER_ROLES.all]
         }
     }).otherwise({
         redirectTo: '/error/404',
         access: {
-            loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,
+            authorizedRights: [USER_ROLES.all]
         }
     })
     
@@ -130,14 +107,14 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
         controller: "AccountListController",
         access: {
             loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: ['MANAGE_USERS']
         }
     }).when("/admin/user/new", {
         templateUrl: "app/pages/admin/account/edit.html",
         controller: "AccountEditController",
         access: {
             loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: ['MANAGE_USERS']
         }
     })
     .when("/admin/user/edit/:id", {
@@ -145,79 +122,73 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
         controller: "AccountEditController",
         access: {
             loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRights: ['MANAGE_USERS']
         }
     })
+    
+    //Lookups
     .when("/admin/roles", {
         templateUrl: "app/pages/admin/role/list.html",
         controller: "AccountRoleController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
     .when("/admin/role/edit/:id", {
         templateUrl: "app/pages/admin/role/edit.html",
         controller: "AccountRoleController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
      .when("/admin/role/new", {
         templateUrl: "app/pages/admin/role/edit.html",
         controller: "AccountRoleController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
      .when("/admin/lookups", {
         templateUrl: "app/pages/admin/lookups/list.html",
         controller: "LookupsController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
      .when("/admin/lookup/branch", {
         templateUrl: "/app/pages/admin/lookups/branch.html",
         controller: "BranchLookupController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
     .when("/admin/lookup/city", {
         templateUrl: "/app/pages/admin/lookups/city.html",
         controller: "CityLookupController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
      .when("/admin/lookup/department", {
         templateUrl: "/app/pages/admin/lookups/department.html",
         controller: "DepartmentLookupController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     })
     .when("/admin/menu", {
         templateUrl: "/app/pages/admin/menu/menu-edit.html",
         controller: "DepartmentLookupController",
         access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
-        }
-    })
-    .when("/admin/account", {
-        templateUrl: "/app/pages/admin/faccount/asd.html",
-        controller: "DoomController",
-        access: {
-            loginRequired: false,	
-            authorizedRoles: [USER_ROLES.all]
+            loginRequired: true,	
+            authorizedRights: ['MANAGE_ADMIN_LOOKUP']
         }
     });
     

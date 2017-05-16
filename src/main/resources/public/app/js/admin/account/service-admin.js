@@ -1,6 +1,6 @@
 myapp.service('Service', services);
 
-function services($resource,$rootScope) {
+function services($resource,$rootScope, toastr) {
 	
 	this.user = $resource('/admin/account/user/:uid', {uid: '@uid'}, {});
 	

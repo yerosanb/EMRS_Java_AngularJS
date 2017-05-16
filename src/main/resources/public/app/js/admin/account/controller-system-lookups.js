@@ -18,7 +18,7 @@ function doomController($scope){
  * @returns
  */
 function branchLookupController($rootScope, $scope, Service, 
-		$routeParams, $location, toastr) {
+		$routeParams, $location) {
 	
 	$scope.save           = saveBranchCallback;
 	$rootScope.branches   = getAllBranches();

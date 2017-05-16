@@ -3,13 +3,13 @@
 myapp.service('Session', function () {
     this.create = function (data) {
     	this.id = data.id;
-        this.login = data.login;
+        this.login = true;
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.email = data.email;
         this.userRoles = [];
-        angular.forEach(data.authorities, function (value, key) {
-            this.push(value.name);
+        angular.forEach(data.rights, function (value, key) {
+            this.push(value);
         }, this.userRoles);
     };
     this.invalidate = function () {
@@ -48,20 +48,22 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
             $rootScope.loadingAccount = true;
             $http.get('security/account')
                 .then(function (response) {
+                	console.log(response);
                     authService.loginConfirmed(response.data);
                 });
         },
-        isAuthorized: function (authorizedRoles) {
-            if (!angular.isArray(authorizedRoles)) {
+        isAuthorized: function (authorizedRights) {
+        	console.log(authorizedRights);
+            if (!angular.isArray(authorizedRights)) {
             	
-                if (authorizedRoles == '*') {
+                if (authorizedRights == '*') {
                     return true;
                 }
-                authorizedRoles = [authorizedRoles];
-                console.log('roles..', authorizedRoles);
+                authorizedRights = [authorizedRights];
+                console.log('roles..', authorizedRights);
             }
             var isAuthorized = false;
-            angular.forEach(authorizedRoles, function (authorizedRole) {
+            angular.forEach(authorizedRights, function (authorizedRole) {
                 var authorized = (!!Session.login &&
                 Session.userRoles.indexOf(authorizedRole) !== -1);
                 if (authorized || authorizedRole == '*') {
@@ -124,14 +126,14 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 	 run : function() {
 		 
 	  $rootScope.$on('$routeChangeStart', function (event, next) {
-
+		  console.log(next.access.authorizedRights,"----------");
 	        if(next.originalPath === "/login" && $rootScope.authenticated) {
 	            event.preventDefault();
 	        } else if (next.access && next.access.loginRequired && !$rootScope.authenticated) {
 	            event.preventDefault();
 	            $rootScope.$broadcast("event:auth-loginRequired", {});
-	        } else if (next.access && !AuthSharedService.isAuthorized(next.access.authorizedRoles)) {
-	        	console.log(next.access.authorizedRoles);
+	        } else if (next.access && !AuthSharedService.isAuthorized(next.access.authorizedRights)) {
+	        	
 	            event.preventDefault();
 	            $rootScope.$broadcast("event:auth-forbidden", {});
 	        }
