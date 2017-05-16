@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.oib.admin.model.UserAccount;
 import org.oib.model.Employee;
 import org.oib.model.MobiUser;
 
@@ -29,12 +30,6 @@ public interface EmployeeRepository {
 	@Update("update employee set fname=#{fname}, lastname=#{lastname}, age=#{age} where id = #{id}")
 	public void updateEmployee(Employee emp);
 	
-	@Select("select * from users where email = #{email}")
-	@Results(value = {
-			@Result(property = "id", column = "id"),
-			 @Result(property="roles", javaType=List.class, column = "id", 
-            	many=@Many(select="org.oib.admin.mapper.UserRoleMapper.getRolesByUserId"))
-	    })
-	public MobiUser searchUser(String email);
+
 
 }

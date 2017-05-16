@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
 import org.oib.admin.model.Role;
+import org.oib.admin.model.UserAccount;
 import org.oib.model.AccountRoleEnum;
 import org.oib.model.MobiUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,16 +52,16 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			// Or use JDBC to access your database
 			// DbUser is our custom domain user. This is not the same as
 			// Spring's User
-			MobiUser mobiUser = userDAO.searchDatabase(email);
+			UserAccount internalUser = userDAO.searchDatabase(email);
 
 			// Populate the Spring User object with details from the dbUser
 			// Here we just pass the email, password, and access level
 			// getAuthorities() will translate the access level to the correct
 			// role type
 
-			user = new User(mobiUser.getEmail().toLowerCase(), mobiUser.getPassword()
+			user = new User(internalUser.getEmail().toLowerCase(), internalUser.getPassword()
 					, true, true, true, true,
-					getAuthorities(mobiUser.getRoles()));
+					getAuthorities(internalUser.getRoles()));
 
 		} catch (Exception e) {
 			logger.error("Error in retrieving user");
@@ -84,7 +85,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	 * @return collection of granted authorities
 	 */
 	@SuppressWarnings("deprecation")
-	public Collection<GrantedAuthority> getAuthorities(List<Role> roles) {
+	public Collection<GrantedAuthority> getAuthorities(Collection<Role> roles) {
 		
 		// Create a list of grants for this user
 		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(1);

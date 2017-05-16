@@ -1,6 +1,7 @@
 package org.oib.admin.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -45,13 +46,15 @@ public class UserAccount extends BaseModel {
 
 	private int enabled;
 	
+	private List<String> rights;
+	
 	@Email(message = "{email.invalid}")
 	@NotEmpty(message = "{email.required}")
 	private String email;
 
 	@NotEmpty(message = "{roles.required}")
 	private Collection<Role> roles;
-
+	
 	@AssertTrue(message = "{confirmPassword.not.match}")
 	private boolean isValid() {
 		if (password == null) {

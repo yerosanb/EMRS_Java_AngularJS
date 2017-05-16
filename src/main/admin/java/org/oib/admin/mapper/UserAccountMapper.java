@@ -37,7 +37,15 @@ public interface UserAccountMapper {
 	public void updateEmployee(Employee emp);
 
 	@Select("select * from users where email = #{email}")
-	public MobiUser searchUser(String email);
+	@Results(value = {
+			@Result(property = "id", column = "id"),
+			 @Result(property="roles", javaType=List.class, column = "id", 
+         	many=@Many(select="org.oib.admin.mapper.UserRoleMapper.getRolesByUserId")),
+			 @Result(property="rights", javaType=List.class, column = "id", 
+         	many=@Many(select="org.oib.admin.mapper.UserRightsMapper.getUserRights"))
+			 
+	    })
+	public UserAccount searchUser(String email);
 
 	@Select("select * from users where firstname like concat('%', #{searchKey}, '%') "
 			+ "or lastname like concat('%', #{searchKey}, '%') "
