@@ -102,18 +102,18 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
     })
     
     //Admin
-    .when("/admin/user/", {
+    .when("/admin/user", {
         templateUrl: "app/pages/admin/account/list.html",
         controller: "AccountListController",
         access: {
-            loginRequired: false,	
+            loginRequired: true,	
             authorizedRights: ['MANAGE_USERS']
         }
     }).when("/admin/user/new", {
         templateUrl: "app/pages/admin/account/edit.html",
         controller: "AccountEditController",
         access: {
-            loginRequired: false,	
+            loginRequired: true,	
             authorizedRights: ['MANAGE_USERS']
         }
     })
@@ -121,7 +121,7 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
         templateUrl: "app/pages/admin/account/edit.html",
         controller: "AccountEditController",
         access: {
-            loginRequired: false,	
+            loginRequired: true,	
             authorizedRights: ['MANAGE_USERS']
         }
     })

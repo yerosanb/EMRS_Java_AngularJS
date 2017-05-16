@@ -137,7 +137,9 @@ myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedSe
 	            event.preventDefault();
 	            $rootScope.$broadcast("event:auth-forbidden", {});
 	        }
-	        $rootScope.requestedUrl = next.originalPath;
+	        
+	        if(next.originalPath !== "/loading")
+	        	$rootScope.requestedUrl = next.originalPath;
 	    });
 
 	    $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
