@@ -1,6 +1,7 @@
 package org.oib.core.config.security;
 
 
+import org.oib.admin.model.UserAccount;
 import org.oib.model.MobiUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class SeurityController {
+public class SecurityController {
 
 
 	@Autowired
@@ -21,8 +22,8 @@ public class SeurityController {
 
     @RequestMapping(value = "/security/account", method = RequestMethod.GET)
     public @ResponseBody
-    MobiUser getUserAccount()  {
-        MobiUser user = userDAO.searchDatabase(SecurityUtils.getCurrentLogin());
+    UserAccount getUserAccount()  {
+        UserAccount user = userDAO.searchDatabase(SecurityUtils.getCurrentLogin());
         user.setPassword(null);
         return user;
     }
