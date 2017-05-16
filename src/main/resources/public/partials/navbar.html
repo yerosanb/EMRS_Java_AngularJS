@@ -73,12 +73,13 @@
 					{{account.firstName}} {{account.lastName}} <b class="caret"></b>
 			</a>
 				<ul class="dropdown-menu">
-					<li><a href="javascript:void(0)">Change Password</a></li>
+					<li><a href="#" target="_self" data-toggle="modal"  data-target="#changeMyPass">Change Password</a></li>
 					<li><a href="javascript:void(0)">Edit Profile</a></li>
 					<li class="divider"></li>
-					<li><a href="#/logout"><i class="glyphicon glyphicon-off"></i>
-							Sign out</a></li>
+					<li><a href="#/logout"><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
 				</ul></li>
 		</ul>
 	</div>
 </div>
+			<ng-include 
+		src="'app/pages/admin/account/password-change-current-user.html'" ng-controller="AccountEditController"></ng-include>

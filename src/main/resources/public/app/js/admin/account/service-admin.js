@@ -14,6 +14,10 @@ function services($resource,$rootScope, toastr) {
 	
 	this.departments = $resource('/admin/lookups/departments/:did', {did: '@did'}, {});
 	
+	this.changePassword =  $resource('/admin/account/changePassword', {}, {});
+	
+	this.changeMyPassword =  $resource('/admin/account/changeMyPassword', {}, {});
+	
 	$rootScope.error422 = function(errorCode){ return errorCode === 422 || false; }
 	
 	$rootScope.error400 = function(errorCode){ return errorCode === 400 || false; }

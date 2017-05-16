@@ -13,7 +13,7 @@ myapp.controller('LoginController', function ($rootScope, $scope, AuthSharedServ
         }
     })
     .controller('HomeController', function ($scope, HomeService) {
-        $scope.technos = HomeService.getTechno();
+       
     })
     .controller('UsersController', function ($scope, $log, UsersService) {
         $scope.users = UsersService.getAll();

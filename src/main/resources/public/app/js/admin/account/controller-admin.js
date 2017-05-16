@@ -18,6 +18,8 @@ function _accountEditController($rootScope, $scope, Service,
 	$scope.save      = saveUserCalleback;
 	$scope.roles     = getAllRoles();
 	$scope.editUserId    = $routeParams.id;
+	$scope.changePassword = changePassword;
+	$scope.changeMyPassword = changeMyPassword;
 	
 	function saveUserCalleback(user) {
 
@@ -53,6 +55,31 @@ function _accountEditController($rootScope, $scope, Service,
 		console.log('getting all the roles');
 		return Service.roles.query();
 	}
+	
+	function changePassword(pass){
+		
+		if(angular.isUndefined(pass)) pass = {};
+		
+		pass.id = $scope.editUserId;
+		
+		Service.changePassword.save(pass, success, error);
+			$scope.merror = '';
+			$scope.msuccess = '';
+			function success(data){ $scope.msuccess = "Password changed Successfully"; }
+			function error(error){ $scope.merror = error; }
+	}
+	
+	function changeMyPassword(pass){
+		
+		if(angular.isUndefined(pass)) pass = {};
+		
+		Service.changeMyPassword.save(pass, success, error);
+			$scope.merror = '';
+			$scope.msuccess = '';
+			function success(data){ $scope.msuccess = data.success; }
+			function error(error){ $scope.merror = error; }
+	}
+	
 
 }
 

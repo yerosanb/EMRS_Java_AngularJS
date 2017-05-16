@@ -16,13 +16,6 @@
                                 <li ng-repeat="(key, value) in errors.data">{{value}}</li>
                             </ul>
              </div>
-             
-    			<div class="alert alert-dismissible alert-danger" ng-show="success.data">
-                            <strong>Errors!</strong> <br/>
-                            <ul>
-                                <li ng-repeat="(key, value) in errors.data">{{value}}</li>
-                            </ul>
-             </div>
 		</div>
 		<div>
 			<div class="alert alert-dismissible alert-success"
@@ -126,8 +119,7 @@
                             </span> 
 					</div>
 
-					<div class="form-group"
-					 ng-class="{'has-error is-focused' : errors.data.roles}">
+					<div class="form-group" ng-class="{'has-error is-focused' : errors.data.roles}">
 						<label>Roles</label>
 						<ui-select multiple ng-model="user.roles" theme="bootstrap"
 							ng-disabled="false" title="Choose a role"> <ui-select-match
@@ -147,17 +139,19 @@
 						ng-click='save(user)'> Save</button>
 						
 					<a ng-href="#/admin/user" class="btn btn-raised">Cancel</a>
-					
 					<button type="button" ng-show="editUserId" class="btn btn-sm btn-raised pull-right">Disable</button> &nbsp;&nbsp;&nbsp;
-					<button type="button" ng-show="editUserId" class="btn btn-sm btn-raised pull-right" >Change Password..</button>
+					<button type="button" ng-show="editUserId" class="btn btn-sm btn-raised pull-right" data-toggle="modal" data-target=".change-selected-user-password">Change Password..</button>
 				</div>
 			</form>
 			
-			
+			<ng-include 
+		src="'app/pages/admin/account/password-change-all-user.html'"></ng-include>
+
+
 		</div>
 
 	</div>
-	<hr>
+
 </div>
 
 

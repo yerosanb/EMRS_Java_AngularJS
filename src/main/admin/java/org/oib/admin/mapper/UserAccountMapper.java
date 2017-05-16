@@ -14,6 +14,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.oib.admin.model.Right;
 import org.oib.admin.model.UserAccount;
+import org.oib.admin.model.dto.ChangeMyPasswordDto;
+import org.oib.admin.model.dto.ChangePasswordDto;
 import org.oib.model.Employee;
 import org.oib.model.MobiUser;
 
@@ -77,5 +79,14 @@ public interface UserAccountMapper {
 	
 	@Delete("delete from user_role where user_id = #{id}")
 	public void removeAllUserRoles(UserAccount user);
+
+	@Update("update users set password = #{password} where id = #{id}")
+	public void changePassword(ChangePasswordDto passDto);
+
+	@Select("select password from users where email = #{email}")
+	public String getUserPassword(String email);
+
+	@Update("update users set password = #{param1} where email = #{param2}")
+	public void changeMyPassword(String password, String email);
 
 }
