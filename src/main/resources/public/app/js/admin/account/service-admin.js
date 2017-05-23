@@ -1,4 +1,4 @@
-myapp.service('Service', services);
+APP.service('Service', services);
 
 function services($resource,$rootScope, toastr) {
 	
@@ -50,4 +50,8 @@ function services($resource,$rootScope, toastr) {
 	return this;
 
 }
+
+
+
+
 

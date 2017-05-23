@@ -47,7 +47,8 @@ class GlobalControllersAdvice {
 				msg.put(error.getField(), error.getDefaultMessage());
 			}
 		} else {
-			msg.put("error", messageSource.getMessage("mvc.method.param.required", null, "Please fill required field",
+			msg.put("error", messageSource.getMessage("mvc.method.param.required", 
+					null, "Please fill required field",
 					Locale.ENGLISH));
 		}
 

@@ -8,6 +8,7 @@ import org.oib.admin.model.Role;
 import org.oib.admin.model.UserAccount;
 import org.oib.admin.model.dto.ChangeMyPasswordDto;
 import org.oib.admin.model.dto.ChangePasswordDto;
+import org.oib.core.config.message.SerializableResourceBundleMessageSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +25,7 @@ public class UserAccountService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public MessageSource messageService;
+	public SerializableResourceBundleMessageSource messageService;
 
 	public void save(UserAccount user) {
 		

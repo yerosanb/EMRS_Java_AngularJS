@@ -1,17 +1,18 @@
 'use strict';
 
-var myapp = angular
+var APP = angular
     .module('myApp', ['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor',
-    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize','angular-loading-bar', 'toastr']);
+    	'ngAnimate', 'angular-spinkit','ui.select','ngSanitize','angular-loading-bar', 
+    	'toastr', 'oib.localStorage',  'ngCookies']);
 
 
-myapp.constant('USER_ROLES', {
+APP.constant('USER_ROLES', {
     all: '*',
     admin: 'ADMIN',
     user: 'user'
 });
-
-myapp.filter('propsFilter', function() {
+APP.value('version', '1494450883183');
+APP.filter('propsFilter', function() {
 	  return function(items, props) {
 	    var out = [];
 
@@ -24,7 +25,7 @@ myapp.filter('propsFilter', function() {
 	        for (var i = 0; i < keys.length; i++) {
 	          var prop = keys[i];
 	          var text = props[prop].toLowerCase();
-	          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+	          if (item[prop]!== null && item[prop].toString().toLowerCase().indexOf(text) !== -1) {
 	            itemMatches = true;
 	            break;
 	          }
@@ -44,7 +45,7 @@ myapp.filter('propsFilter', function() {
 	});
 
 
-myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
+APP.config(function ($routeProvider, USER_ROLES, $httpProvider) {
 
 
     // Expermental, there is already a progressbar http interceptor
@@ -196,7 +197,7 @@ myapp.config(function ($routeProvider, USER_ROLES, $httpProvider) {
     
 });
 
-myapp.run(function (RunService ) {
+APP.run(function (RunService ) {
 
 	RunService.run()
 

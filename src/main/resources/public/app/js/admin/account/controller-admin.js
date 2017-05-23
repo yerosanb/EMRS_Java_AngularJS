@@ -1,8 +1,8 @@
-
-myapp.controller('AccountEditController', _accountEditController);
-myapp.controller('AccountListController', _accountListController);
-myapp.controller('AccountRoleController', _accountRoleController);
-myapp.controller('LookupsController', _lookupsController);
+APP
+.controller('AccountEditController', _accountEditController)
+.controller('AccountListController', _accountListController)
+.controller('AccountRoleController', _accountRoleController)
+.controller('LookupsController', _lookupsController);
 
 /**
  * Account Edit controller

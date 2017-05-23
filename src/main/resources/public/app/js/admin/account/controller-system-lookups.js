@@ -1,13 +1,7 @@
-
-myapp.controller('BranchLookupController', branchLookupController);
-myapp.controller('CityLookupController', CityLookupController);
-myapp.controller('DepartmentLookupController', departmentLookupController);
-myapp.controller('DoomController', doomController);
-
-
-function doomController($scope){
-	$scope.title = 'OIB HEllo!';
-}
+APP
+.controller('BranchLookupController', branchLookupController)
+.controller('CityLookupController', CityLookupController)
+.controller('DepartmentLookupController', departmentLookupController)
 
 /**
  * Branch controller

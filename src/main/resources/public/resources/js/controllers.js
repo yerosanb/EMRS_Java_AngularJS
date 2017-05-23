@@ -1,7 +1,7 @@
 'use strict';
 
 
-myapp.controller('LoginController', function ($rootScope, $scope, AuthSharedService) {
+APP.controller('LoginController', function ($rootScope, $scope, AuthSharedService) {
         $scope.rememberMe = true;
         $scope.login = function () {
             $rootScope.authenticationError = false;

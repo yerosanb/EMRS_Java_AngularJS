@@ -1,6 +1,6 @@
 'use strict';
 
-myapp.service('Session', function () {
+APP.service('Session', function () {
     this.create = function (data) {
     	this.id = data.id;
         this.login = true;
@@ -24,7 +24,7 @@ myapp.service('Session', function () {
 });
 
 
-myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authService, Session) {
+APP.service('AuthSharedService', function ($rootScope, $http, $resource, authService, Session, $filter) {
     return {
         login: function (userName, password, rememberMe) {
             var config = {
@@ -63,10 +63,10 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
                 console.log('roles..', authorizedRights);
             }
             var isAuthorized = false;
-            angular.forEach(authorizedRights, function (authorizedRole) {
+            angular.forEach(authorizedRights, function (authorizedRight) {
                 var authorized = (!!Session.login &&
-                Session.userRoles.indexOf(authorizedRole) !== -1);
-                if (authorized || authorizedRole == '*') {
+                Session.userRoles.indexOf($filter('uppercase')(authorizedRight)) !== -1);
+                if (authorized || authorizedRight == '*') {
                     isAuthorized = true;
                 }
             });
@@ -83,7 +83,7 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
     };
 });
 
-myapp.service('HomeService', function ($log, $resource) {
+APP.service('HomeService', function ($log, $resource) {
     return {
         getTechno: function () {
             var userResource = $resource('resources/json/techno.json', {}, {
@@ -95,7 +95,7 @@ myapp.service('HomeService', function ($log, $resource) {
 });
 
 
-myapp.service('UsersService', function ($log, $resource) {
+APP.service('UsersService', function ($log, $resource) {
     return {
         getAll: function () {
             var userResource = $resource('users', {}, {
@@ -107,7 +107,7 @@ myapp.service('UsersService', function ($log, $resource) {
 });
 
 
-myapp.service('TokensService', function ($log, $resource) {
+APP.service('TokensService', function ($log, $resource) {
     return {
         getAll: function () {
             var tokensResource = $resource('security/tokens', {}, {
@@ -118,7 +118,7 @@ myapp.service('TokensService', function ($log, $resource) {
     }
 });
 
-myapp.service('RunService', function ($rootScope, $location, $http, AuthSharedService, Session, 
+APP.service('RunService', function ($rootScope, $location, $http, AuthSharedService, Session, 
 		USER_ROLES, $q, $timeout, Service) {
 	
 	return {
