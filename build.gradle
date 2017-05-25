@@ -25,6 +25,14 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets.main.java.srcDirs = 
+			[
+            "src/main/java",
+            "src/main/core/java",
+            "src/main/admin/java"
+            ]
+
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0')
