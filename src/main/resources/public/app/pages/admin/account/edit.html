@@ -123,7 +123,8 @@
 						<ui-select multiple ng-model="user.roles" theme="bootstrap"
 								ng-disabled="false" title="Choose a role"> 
 								<ui-select-match
-									oib-message="form.roles.placeholder">{{$item.name}}
+								placeholder="Select Role" 
+								>{{$item.name}}
 								</ui-select-match> 
 								<ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
 								   <strong><div ng-bind-html="role.name | highlight: $select.search"></div></strong>
@@ -148,7 +149,6 @@
 			
 			<ng-include 
 		 src="'app/pages/admin/account/password-change-all-user.html'"></ng-include>
-
 
 		</div>
 
