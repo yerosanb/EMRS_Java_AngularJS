@@ -1,0 +1,16 @@
+{
+  "name": "ems",
+  "version": "1.0.0",
+  "description": "package.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://fromsa@bitbucket.org/adugna/oib-help-desk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/adugna/oib-help-desk#readme"
+}

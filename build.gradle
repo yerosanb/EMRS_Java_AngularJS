@@ -13,13 +13,26 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
-jar {
-	baseName = 'OIB'
-	version = '0.0.1-SNAPSHOT'
+
+war 
+{
+baseName = 'emrs'
+version = '0.0.1-SNAPSHOT'
+
 }
 
+
+
+springBoot {
+    mainClass = "org.ab.web.Application"
+}
+
+
 sourceCompatibility = 1.8
+
+
 
 repositories {
 	mavenCentral()
@@ -39,11 +52,18 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
+	runtime('com.microsoft.sqlserver:mssql-jdbc')
+	
 	compile('org.springframework:spring-context-support:4.3.6.RELEASE')
 	compile('org.projectlombok:lombok')
 	compile "org.quartz-scheduler:quartz:2.2.1"
     compile('org.springframework.boot:spring-boot-starter-security')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.flywaydb:flyway-core')
+	
+	compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
+	compile group: 'org.apache.poi', name: 'poi', version: '3.10.1'
+	providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: "1.3.3.RELEASE"
+	
 }
 

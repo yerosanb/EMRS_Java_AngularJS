@@ -21,3 +21,4 @@ classes
 .gradle
 .classpath
 .project
+/build/

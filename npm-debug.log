@@ -1,0 +1,66 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-f',
+1 verbose cli   'datatables.net-dte'
+1 verbose cli ]
+2 info using npm@2.14.9
+3 info using node@v18.13.0
+4 warn using --force I sure hope you know what you are doing.
+5 verbose install initial load of C:\Users\yero\Videos\EMMS\package.json
+6 warn package.json ems@1.0.0 No README data
+7 verbose readDependencies loading dependencies from C:\Users\yero\Videos\EMMS\package.json
+8 silly cache add args [ 'datatables.net-dte', null ]
+9 verbose cache add spec datatables.net-dte
+10 silly cache add parsed spec Result {
+10 silly cache add   raw: 'datatables.net-dte',
+10 silly cache add   scope: null,
+10 silly cache add   name: 'datatables.net-dte',
+10 silly cache add   rawSpec: '',
+10 silly cache add   spec: '*',
+10 silly cache add   type: 'range'
+10 silly cache add }
+11 silly addNamed datatables.net-dte@*
+12 verbose addNamed "*" is a valid semver range for datatables.net-dte
+13 silly addNameRange { name: 'datatables.net-dte', range: '*', hasData: false }
+14 silly mapToRegistry name datatables.net-dte
+15 silly mapToRegistry using default registry
+16 silly mapToRegistry registry https://registry.npmjs.org/
+17 silly mapToRegistry uri https://registry.npmjs.org/datatables.net-dte
+18 verbose addNameRange registry:https://registry.npmjs.org/datatables.net-dte not in flight; fetching
+19 verbose request uri https://registry.npmjs.org/datatables.net-dte
+20 verbose request no auth needed
+21 info attempt registry request try #1 at 3:41:37 PM
+22 verbose request id cd520086b44a77d0
+23 http request GET https://registry.npmjs.org/datatables.net-dte
+24 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=connect ECONNREFUSED ::1:80
+25 info attempt registry request try #2 at 3:41:47 PM
+26 http request GET https://registry.npmjs.org/datatables.net-dte
+27 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=connect ECONNREFUSED ::1:80
+28 info attempt registry request try #3 at 3:42:47 PM
+29 http request GET https://registry.npmjs.org/datatables.net-dte
+30 verbose stack Error: tunneling socket could not be established, cause=connect ECONNREFUSED ::1:80
+30 verbose stack     at ClientRequest.onError (C:\Program Files\nodejs\node_modules\npm\node_modules\request\node_modules\tunnel-agent\index.js:174:17)
+30 verbose stack     at Object.onceWrapper (node:events:628:26)
+30 verbose stack     at ClientRequest.emit (node:events:513:28)
+30 verbose stack     at Socket.socketErrorListener (node:_http_client:496:9)
+30 verbose stack     at Socket.emit (node:events:513:28)
+30 verbose stack     at emitErrorNT (node:internal/streams/destroy:151:8)
+30 verbose stack     at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+30 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+31 verbose cwd C:\Users\yero\Videos\EMMS
+32 error Windows_NT 10.0.19045
+33 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-f" "datatables.net-dte"
+34 error node v18.13.0
+35 error npm  v2.14.9
+36 error code ECONNRESET
+37 error network tunneling socket could not be established, cause=connect ECONNREFUSED ::1:80
+37 error network This is most likely not a problem with npm itself
+37 error network and is related to network connectivity.
+37 error network In most cases you are behind a proxy or have bad network settings.
+37 error network
+37 error network If you are behind a proxy, please make sure that the
+37 error network 'proxy' config is set properly.  See: 'npm help config'
+38 verbose exit [ 1, true ]
