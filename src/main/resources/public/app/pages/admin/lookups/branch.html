@@ -1,0 +1,56 @@
+<div class="container well content">
+
+	<ng-include ng-controller="LookupsController"
+		src="'app/pages/admin/lookups/list.html'"></ng-include>
+
+	<div class="tab-content">
+		<div class="tab-pane active">
+			 
+			<!-- grid list -->
+			<div class="col-lg-12" ng-if="mode === 'list'">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2 class="pull-left section-title">
+							<span>Branches</span> 
+							<a href="#/admin/lookup/branch?m=new"
+								class="btn btn-primary pull-right btn-sm">Add New</a>
+						</h2>
+					</div>
+				</div>
+
+				<div class="row">
+					<div ng-show="branches.length">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>code</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="branch in branches">
+									<td>{{$index +1}}</td>
+									<td><strong>
+										<a href="#/admin/lookup/branch?m=edit&id={{branch.id}}" 
+											ng-bind="branch.name">
+										</a></strong></td>
+
+									<td>{{branch.code}}</td>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- grid end -->
+			<!-- Edit start-->
+			<ng-include ng-if="mode !== 'list'" src="'/app/pages/admin/lookups/branch-edit.html'"></ng-include>
+			<!-- Edit end -->
+			<hr>
+		</div>
+
+	</div>
+</div>
+
+
+

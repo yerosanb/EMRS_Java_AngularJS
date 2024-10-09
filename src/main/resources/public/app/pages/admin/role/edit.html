@@ -1,0 +1,81 @@
+<div class="container well content">
+	<div class="col-lg-12">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pull-left section-title">
+					<span>Edit Role</span>
+				</h2>
+			</div>
+		</div>
+		<div>
+			<div class="alert alert-dismissible alert-danger"
+				ng-show="errors.data">
+				<strong>Errors!</strong> <br />
+				<ul>
+					<li ng-repeat="(key, value) in errors.data">{{value}}</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div>
+			<div class="alert alert-dismissible alert-success"
+				ng-show="successMessage">
+				<strong>Success</strong> <br />
+				<ul>
+					<li ng-bind="successMessage" >successMessage</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="row">
+			<form>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-6 form-group" 
+							ng-class="{'has-error is-focused' : errors.data.code || error422(errors.status)}">
+							<label>Code </label> <input type="text"
+								placeholder="Enter code Here.." class="form-control"
+								ng-model="role.code"> <span ng-show="errors.data || error422(errors.status)"
+								class="help-text error"> {{errors.data.code || errors.data.error}} </span>
+						</div>
+						<div class="col-sm-6 form-group"
+							ng-class="{'has-error is-focused' : errors.data.name}">
+							<label>Name</label> <input type="text"
+								placeholder="Enter role name Here.." class="form-control"
+								ng-model="role.name"> <span ng-show="errors.data.name"
+								class="help-text error"> {{errors.data.name}} </span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Description</label>
+						<textarea placeholder="Enter Description Here.." rows="3"
+							class="form-control" ng-model="role.description"></textarea>
+					</div>
+
+					<div class="form-group"
+						ng-class="{'has-error is-focused' : errors.data.rights}">
+						<label>Rights</label>
+						<ui-select multiple ng-model="role.rights" theme="bootstrap"
+							ng-disabled="false" title="Choose a right"> <ui-select-match
+							placeholder="Select rights..">{{$item.description}} </ui-select-match> 
+							<ui-select-choices
+							repeat="r in rights | propsFilter: {description: $select.search}">
+						<small> {{r.description}} </small> 
+						</ui-select-choices> </ui-select>
+						<span ng-show="errors.data.rights || !role.rights"
+							class="help-text error"> {{errors.data.rights}} </span>
+					</div>
+
+					<br />
+					<button type="button" class="btn btn-lg btn-primary"
+						ng-click='save(role)'>Save</button>
+						<a ng-href="#/admin/roles" class="btn">Cancle</a>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<hr>
+</div>
+
